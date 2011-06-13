@@ -1,11 +1,13 @@
 package com.acme.view;
 
 import com.acme.domain.Address;
+import org.jboss.logging.Logger;
 import org.jboss.seam.forge.persistence.PersistenceUtil;
 import org.jboss.seam.transaction.Transactional;
 
 import javax.ejb.Stateful;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import java.util.List;
 
@@ -33,6 +35,7 @@ public class AddressBean extends PersistenceUtil {
     }
 
     public String save() {
+        log.info("save method called");
         save(address);
         return "view?faces-redirect=true&id=" + address.getId();
     }
@@ -64,4 +67,7 @@ public class AddressBean extends PersistenceUtil {
     public void setList(List<Address> list) {
         this.list = list;
     }
+
+    @Inject
+    private Logger log;
 }
